@@ -31,3 +31,8 @@ aws s3 sync . s3://<NOME-BUCKET-S3>
 ```
 aws s3 sync . s3://bucket-alura-1-3
 ```
+
+
+aws s3 rm s3://bucket-alura-1-3 --recursive
+
+

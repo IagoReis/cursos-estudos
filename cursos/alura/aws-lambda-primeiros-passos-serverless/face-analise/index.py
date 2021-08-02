@@ -3,8 +3,8 @@ import boto3
 s3 = boto3.resource('s3')
 client = boto3.client('rekognition')
 
-s3_bucket_repo = 'bucket-alura-1-3';
-rekognition_collection_id = 'faces-naruto'
+s3_bucket_repo = 'bucket-alura-1-3'
+rekognition_collection_id = 'faces-got'
 
 
 def listar_imagens():
@@ -21,16 +21,15 @@ def indexar_colecao(imagens):
         print("Indexando {}".format(i))
         response = client.index_faces(
             CollectionId=rekognition_collection_id,
-            ExternalImageId=i[:-4],
+            ExternalImageId=i,
             Image={
                 'S3Object': {
                     'Bucket': s3_bucket_repo,
-                    'Name': i,
+                    'Name': i
                 }
             }
         )
         print("{} indexado com sucesso".format(i))
-        response
 
 
 if __name__ == '__main__':

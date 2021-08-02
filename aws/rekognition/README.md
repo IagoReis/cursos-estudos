@@ -58,6 +58,12 @@ aws rekognition list-faces --collection-id <ID-DA-COLLECTION>
 aws rekognition list-faces --collection-id faces-natal-1990
 ```
 
+#### Exemplo com grep por ExternalImageId
+
+```
+aws rekognition list-faces --collection-id faces-natal-1990 | grep ExternalImageId
+```
+
 
 ### Excluir conteúdo da collection
 
