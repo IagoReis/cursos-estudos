@@ -27,3 +27,5 @@ Focado no comportamento e estado dos métodos, assim como a interação entre os
 
 - [Strategy](strategy.md)
 - [Chain of Responsibility](chain-of-responsibility.md)
+- [Template Method](template-method.md)
+- [State](state.md)
