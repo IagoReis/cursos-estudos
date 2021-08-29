@@ -1,0 +1,22 @@
+{
+    "id_conta": "1010101010101",
+    "data_lancamento": "2020-10-20T10:10:10",
+    "evento": {
+        "id_lancamento": "1234567890",
+        "data_lancamento": "2020-10-20T10:10:10",
+        "valor": 1295.03,
+        "detalhes": [
+            "id_detalhe": "32244000",
+            "pessoa": {
+                "cpf": "123",
+                "rg": "321",
+                "nome": "José",
+                "salario": 1899.33,
+                "musicas_favoritas": [
+                    "Bum bum tam tam",
+                    "Faroeste caboclo"
+                ]
+            }
+        ]
+    }
+}
