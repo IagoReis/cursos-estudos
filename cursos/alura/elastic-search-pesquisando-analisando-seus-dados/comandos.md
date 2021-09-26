@@ -668,12 +668,170 @@ https://www.elastic.co/guide/en/elasticsearch/reference/current/mapping-all-fiel
 
 Objetos aninhados são mapeados de maneira semelhante a objetos não aninhados. Basta utilizar como tipo de dados object e definir as propriedades. Esta abordagem funciona de forma recursiva.
 
+Para saber mais, acesse:
+
+https://www.elastic.co/guide/en/elasticsearch/guide/current/complex-core-fields.html
+
+---
+
+Stemmer => tranforma a palavra em sua forma mais primitiva, como por exemplo, remove plurais, conjugações e etc.
+
+---
+
+Criar novo indice
+
+PUT /indice_com_sinonimo
+{
+  "settings": {
+    "index": {
+      "number_of_shards": 3,
+      "number_of_replicas": 0
+    },
+    "analysis": {
+      "filter": {
+        "filtro_de_sinonimos": {
+            "type": "synonym",
+            "synonyms": [
+                "esporte,futebol,society,futeba,pelada"
+            ]
+        }
+      },
+      "analyzer": {
+        "sinonimos": {
+          "tokenizer":  "standard",
+          "filter": [
+            "lowercase",
+            "filtro_de_sinonimos"
+          ]
+        }
+      }
+    }
+  }
+}
+
+response:
+
+
+{
+  "acknowledged": true
+}
+
+---
+
+verificar os tokens marcados na position 4:
+
+GET /indice_com_sinonimo/_analyze?analyzer=sinonimos&text=eu+gosto+de+jogar+society
+
+GET /indice_com_sinonimo/_analyze?analyzer=sinonimos&text=eu+gosto+de+praticar+esporte
+
+GET /indice_com_sinonimo/_analyze?analyzer=sinonimos&text=arvore+praticamente+pelada
+
+---
+
+PUT /indice_com_sinonimo_2
+{
+  "settings": {
+    "index": {
+      "number_of_shards": 3,
+      "number_of_replicas": 0
+    },
+    "analysis": {
+      "filter": {
+        "filtro_de_sinonimos": {
+            "type": "synonym",
+            "synonyms": [
+        "futebol => futebol,society",
+        "society => society,futebol",
+        "esporte => esporte,futebol,society,volei,basquete"
+            ]
+        }
+      },
+      "analyzer": {
+        "sinonimos": {
+          "tokenizer":  "standard",
+          "filter": [
+            "lowercase",
+            "filtro_de_sinonimos"
+          ]
+        }
+      }
+    }
+  }
+}
+
+response:
+
+{
+  "acknowledged": true
+}
+
+---
+
+GET /indice_com_sinonimo_2/_analyze?analyzer=sinonimos&text=futebol
+
+---
+O ANALIZER DEVE SER APLICADO TANTO QUANDO INDEXAMOS O DOCUMENTO, QUANTO QUANDO REALIZAMOS A BUSCA
+
+---
+
+Como vimos neste capítulo, podemos definir sinônimos diretamente no atributo synonyms do filtro que definimos. Podemos também fazer uso do atributo synonyms_path para indicar o arquivo de onde os sinônimos serão lidos. O caminho do arquivo deve ser ou relativo ao diretório de configuração (config) do Elasticsearch ou um caminho absoluto para o arquivo.
+
+VER OPINIÃO DO INSTRUTOR
+
+
+https://www.elastic.co/guide/en/elasticsearch/reference/current/analysis-synonym-tokenfilter.html
+
+---
+
+É razoável afirmar que todos nós, uma vez na vida, já recebemos sugestões qual fazemos busca no Google como "Você quis dizer…?". E em geral, quando recebemos esta sugestão, cometemos algum erro de digitação. ElasticSearch também dá suporte a tal tipo de sugestão através da busca Fuzzy.
+
+Na prática, este tipo de busca não é usada para retornar documentos automaticamente, mas sim para dar sugestões aos usuários do que eles realmente estariam procurando.
+
+Para saber mais detalhes, acesse o link a seguir:
+
+https://www.elastic.co/guide/en/elasticsearch/guide/current/fuzzy-matching.html
+
+---
+
+Usos mais avançados para a _bulk API
+Para mais detalhes sobre a _bulk API, acesse o link:
+
+https://www.elastic.co/guide/en/elasticsearch/reference/current/docs-bulk.html
+
+---
+
+Para contar a quantidade de registros, utilizamos o seguinte request:
+
+GET /pessoas/registros/_count
+{}
+
+---
+
+Como você deve ter notado, quando utilizamos a Discover Tab e fizemos a busca por matemática ou esportes, tivemos os termos encontrados mostrados em destaque. Esta é uma funcionalidade provida pelo ElasticSearch e não pelo Kibana, e pode ser utilizada em qualquer website.
+
+VER OPINIÃO DO INSTRUTOR
+Opinião do instrutor
+
+Para saber mais, acesse o link:
+
+https://www.elastic.co/guide/en/elasticsearch/reference/current/search-request-highlighting.html
 
 ---
 
 
+---
+
 
 ---
 
 
+---
 
+
+---
+
+
+---
+
+
+---
