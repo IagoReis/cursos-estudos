@@ -1,0 +1,9 @@
+{
+  "index": "0",
+  "isActive": true,
+  "age": "${age}",
+  "eye": "${eye}",
+  "name": "${name}",
+  "gender": "${gender}",
+  "company": "Udemy"
+}
